@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.8
+    - name: Set up Pipenv actions
+      uses: dschep/install-pipenv-action@v1
     - uses: actions/cache@v1
       name: Configure pip caching
       with:
@@ -27,16 +29,11 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('**/Pipfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade pipenv
-        pipenv install
     - name: Build database
-      run: python build_database.py
+      run: pipenv run build_database.py
     - name: Update README
       run: |-
-        python update_readme.py --rewrite
+        pipenv run update_readme.py --rewrite
         cat README.md
     - name: Commit and push if README changed
       run: |-
