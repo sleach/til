@@ -30,10 +30,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
     - name: Build database
-      run: pipenv run build_database.py
+      run: pipenv run python build_database.py
     - name: Update README
       run: |-
-        pipenv run update_readme.py --rewrite
+        pipenv run python update_readme.py --rewrite
         cat README.md
     - name: Commit and push if README changed
       run: |-
