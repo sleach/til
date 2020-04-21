@@ -33,10 +33,10 @@ jobs:
       run: |
         pipenv install
     - name: Build database
-      run: pipenv run python build_database.py
+      run: pipenv run python til.py --build
     - name: Update README
       run: |-
-        pipenv run python update_readme.py --rewrite
+        pipenv run python til.py --update --rewrite
         cat README.md
     - name: Commit and push if README changed
       run: |-
